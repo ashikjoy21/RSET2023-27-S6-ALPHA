@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Station Mini Project - Complete Code Documentation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6; 
+            color: #333; 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .page { 
+            background: white; 
+            padding: 40px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            page-break-after: always;
+        }
+        h1 { color: #1a365d; font-size: 2.5em; margin-bottom: 10px; border-bottom: 3px solid #3182ce; padding-bottom: 15px; }
+        h2 { color: #2c5282; font-size: 1.8em; margin: 30px 0 15px 0; border-left: 4px solid #3182ce; padding-left: 15px; }
+        h3 { color: #2b6cb0; font-size: 1.3em; margin: 25px 0 10px 0; }
+        h4 { color: #4a5568; font-size: 1.1em; margin: 15px 0 8px 0; }
+        p { margin-bottom: 12px; text-align: justify; }
+        ul, ol { margin: 10px 0 15px 25px; }
+        li { margin-bottom: 8px; }
+        code { 
+            background: #edf2f7; 
+            padding: 2px 6px; 
+            border-radius: 3px; 
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+        }
+        pre { 
+            background: #1a202c; 
+            color: #e2e8f0; 
+            padding: 20px; 
+            border-radius: 8px; 
+            overflow-x: auto; 
+            font-size: 12px; 
+            line-height: 1.5;
+            margin: 15px 0;
+        }
+        pre code { background: none; padding: 0; color: inherit; }
+        .file-header { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            padding: 12px 20px; 
+            border-radius: 8px 8px 0 0; 
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .file-content { border-radius: 0 0 8px 8px; margin-top: 0; }
+        .toc { background: #f7fafc; padding: 25px; border-radius: 8px; margin: 20px 0; }
+        .toc ul { list-style: decimal; }
+        .toc li { margin: 8px 0; }
+        .highlight { background: #fef3c7; padding: 15px; border-left: 4px solid #f59e0b; margin: 15px 0; }
+        .tech-badge { 
+            display: inline-block; 
+            background: #3182ce; 
+            color: white; 
+            padding: 4px 12px; 
+            border-radius: 15px; 
+            font-size: 0.85em; 
+            margin: 3px;
+        }
+        .architecture-box { 
+            background: #f0fff4; 
+            border: 2px solid #38a169; 
+            padding: 20px; 
+            border-radius: 8px; 
+            margin: 15px 0;
+        }
+        @media print {
+            body { background: white; }
+            .page { box-shadow: none; margin: 0; padding: 20px; }
+            pre { font-size: 10px; }
+        }
+        .comment { color: #68d391; }
+        .keyword { color: #f687b3; }
+        .string { color: #fbd38d; }
+        .function { color: #63b3ed; }
+    </style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="page">
+    <div style="text-align: center; padding: 100px 0;">
+        <h1 style="font-size: 3em; border: none;">🌤️ Weather Station</h1>
+        <h2 style="border: none; color: #4a5568; font-weight: normal;">Mini Project Documentation</h2>
+        <p style="font-size: 1.2em; color: #718096; margin: 40px 0;">Complete Code Reference & Learning Guide</p>
+        
+        <div style="margin: 50px 0;">
+            <span class="tech-badge">Node.js</span>
+            <span class="tech-badge">Express</span>
+            <span class="tech-badge">MongoDB</span>
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">Vite</span>
+            <span class="tech-badge">Recharts</span>
+            <span class="tech-badge">TailwindCSS</span>
+        </div>
+        
+        <p style="color: #a0aec0; margin-top: 80px;">
+            <strong>GitHub:</strong> github.com/habibinav/miniproject<br>
+            <strong>Generated:</strong> January 29, 2026
+        </p>
+    </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="page">
+    <h1>📑 Table of Contents</h1>
+    
+    <div class="toc">
+        <ul>
+            <li><strong>Project Overview</strong> - Architecture & Tech Stack</li>
+            <li><strong>Backend Server</strong>
+                <ul>
+                    <li>server.js - Express Server Entry Point</li>
+                    <li>routes/weather.js - API Routes</li>
+                    <li>models/Weather.js - MongoDB Schema</li>
+                    <li>utils/ambient-weather.js - API Client</li>
+                    <li>utils/db-sync.js - Database Sync</li>
+                </ul>
+            </li>
+            <li><strong>Frontend Application</strong>
+                <ul>
+                    <li>main.jsx - React Entry Point</li>
+                    <li>App.jsx - Root Component</li>
+                    <li>pages/Home.jsx - Home Page</li>
+                    <li>pages/Analysis.jsx - Analysis Dashboard</li>
+                </ul>
+            </li>
+            <li><strong>UI Components</strong>
+                <ul>
+                    <li>MainWeatherCard.jsx - Real-time Weather Display</li>
+                    <li>DiurnalHeatmap.jsx - Temperature Heatmap</li>
+                    <li>WindPolarChart.jsx - Wind Direction Polar Chart</li>
+                    <li>TemperatureChart.jsx - Min-Max Temperature Chart</li>
+                </ul>
+            </li>
+            <li><strong>How It Works</strong> - Data Flow Explanation</li>
+        </ul>
+    </div>
+</div>
+
+<!-- PROJECT OVERVIEW -->
+<div class="page">
+    <h1>1. Project Overview</h1>
+    
+    <h2>What This Project Does</h2>
+    <p>This is a <strong>full-stack weather monitoring application</strong> that fetches real-time weather data from an Ambient Weather station, stores it in MongoDB, and displays it through an interactive React dashboard with various visualization charts.</p>
+    
+    <div class="architecture-box">
+        <h3>🏗️ System Architecture</h3>
+        <pre style="background: transparent; color: #333;">
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│  Ambient Weather│────▶│   Express API   │────▶│    MongoDB      │
+│     Station     │     │    (Backend)    │◀────│   (Database)    │
+└─────────────────┘     └────────┬────────┘     └─────────────────┘
+                                 │
+                                 ▼
+                        ┌─────────────────┐
+                        │  React Frontend │
+                        │   (Dashboard)   │
+                        └─────────────────┘
+        </pre>
+    </div>
+
+    <h2>Technology Stack</h2>
+    
+    <h3>Backend</h3>
+    <ul>
+        <li><strong>Node.js</strong> - JavaScript runtime</li>
+        <li><strong>Express.js</strong> - Web framework for REST API</li>
+        <li><strong>MongoDB</strong> - NoSQL database for storing weather data</li>
+        <li><strong>Mongoose</strong> - MongoDB object modeling</li>
+        <li><strong>Axios</strong> - HTTP client for API requests</li>
+    </ul>
+    
+    <h3>Frontend</h3>
+    <ul>
+        <li><strong>React 18</strong> - UI library</li>
+        <li><strong>Vite</strong> - Build tool and dev server</li>
+        <li><strong>Recharts</strong> - Charting library</li>
+        <li><strong>TailwindCSS</strong> - Utility-first CSS framework</li>
+        <li><strong>Lucide React</strong> - Icon library</li>
+    </ul>
+    
+    <h2>Project Structure</h2>
+    <pre>
+miniproject/
+├── server.js              # Express server entry point
+├── package.json           # Backend dependencies
+├── routes/
+│   └── weather.js         # API endpoints
+├── models/
+│   └── Weather.js         # MongoDB schema
+├── utils/
+│   ├── ambient-weather.js # Ambient Weather API client
+│   └── db-sync.js         # Automatic data sync
+├── ml/
+│   └── predict.py         # ML forecast (Python)
+└── frontend/
+    ├── src/
+    │   ├── main.jsx       # React entry point
+    │   ├── App.jsx        # Root component
+    │   ├── pages/         # Page components
+    │   └── components/    # Reusable UI components
+    └── package.json       # Frontend dependencies
+    </pre>
+</div>
+
+<!-- BACKEND: SERVER.JS -->
+<div class="page">
+    <h1>2. Backend Server</h1>
+    
+    <h2>server.js - Express Server Entry Point</h2>
+    <p>This is the main entry point that starts the Express server, connects to MongoDB, and sets up automatic data synchronization.</p>
+    
+    <div class="highlight">
+        <strong>Key Concepts:</strong>
+        <ul>
+            <li><code>express()</code> creates the application</li>
+            <li><code>mongoose.connect()</code> connects to MongoDB</li>
+            <li><code>setInterval()</code> schedules hourly data sync</li>
+            <li><code>app.use(cors())</code> enables cross-origin requests</li>
+        </ul>
+    </div>
+
+    <div class="file-header">📄 server.js</div>
+    <pre class="file-content"><code>const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const weatherRoutes = require('./routes/weather');
+
+const mongoose = require('mongoose');
+const dbSync = require('./utils/db-sync');
+
+dotenv.config();
+
+<span class="comment">// Connect to MongoDB</span>
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+        console.log('Connected to MongoDB');
+        <span class="comment">// Start the hourly sync directly after connection</span>
+        <span class="comment">// 3600000 ms = 1 hour</span>
+        setInterval(() => {
+            dbSync.syncAllDevices();
+        }, 3600000);
+
+        <span class="comment">// Optional: Run one immediately on startup</span>
+        dbSync.syncAllDevices();
+    })
+    .catch(err => console.error('MongoDB connection error:', err));
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(express.json());
+app.use(express.static('public'));
+
+<span class="comment">// Routes</span>
+app.use('/api/weather', weatherRoutes);
+
+app.get('/', (req, res) => {
+    res.send('Ambient Weather API Backend is running');
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});</code></pre>
+
+    <h3>How It Works</h3>
+    <ol>
+        <li><strong>Environment Setup:</strong> Loads environment variables from <code>.env</code> file</li>
+        <li><strong>Database Connection:</strong> Connects to MongoDB using the connection string</li>
+        <li><strong>Auto-Sync:</strong> After connecting, starts an hourly sync job to fetch new weather data</li>
+        <li><strong>Middleware:</strong> Sets up CORS and JSON parsing</li>
+        <li><strong>Routes:</strong> Mounts weather API routes at <code>/api/weather</code></li>
+    </ol>
+</div>
+
+<!-- BACKEND: WEATHER ROUTES -->
+<div class="page">
+    <h2>routes/weather.js - API Endpoints</h2>
+    <p>This file defines all the REST API endpoints for fetching weather data. It handles multiple data resolutions (5-min, hourly, daily) for efficient chart rendering.</p>
+
+    <div class="highlight">
+        <strong>API Endpoints:</strong>
+        <ul>
+            <li><code>GET /api/weather</code> - Get all devices with latest data</li>
+            <li><code>GET /api/weather/history</code> - Get historical data (multi-resolution)</li>
+            <li><code>GET /api/weather/wind</code> - Get wind data for polar chart</li>
+            <li><code>GET /api/weather/stats</code> - Get database statistics</li>
+            <li><code>GET /api/weather/forecast</code> - Get ML-based forecast</li>
+        </ul>
+    </div>
+
+    <div class="file-header">📄 routes/weather.js (Part 1 - Main Endpoints)</div>
+    <pre class="file-content"><code>const express = require('express');
+const router = express.Router();
+const { spawn } = require('child_process');
+const path = require('path');
+const ambientWeather = require('../utils/ambient-weather');
+const Weather = require('../models/Weather');
+
+<span class="comment">// GET /api/weather</span>
+<span class="comment">// Fetches latest data from API and saves to DB</span>
+router.get('/', async (req, res) => {
+    try {
+        const devices = await ambientWeather.getDevices();
+
+        <span class="comment">// Save to MongoDB asynchronously</span>
+        devices.forEach(async (device) => {
+            if (device.lastData && device.lastData.date) {
+                try {
+                    await Weather.updateOne(
+                        { macAddress: device.macAddress, date: device.lastData.date },
+                        {
+                            macAddress: device.macAddress,
+                            date: device.lastData.date,
+                            data: device.lastData,
+                            fetchedAt: new Date()
+                        },
+                        { upsert: true }
+                    );
+                } catch (dbError) {
+                    console.error('Error saving to DB:', dbError.message);
+                }
+            }
+        });
+
+        res.json(devices);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch weather data' });
+    }
+});</code></pre>
+
+    <h3>Understanding the Code</h3>
+    <ul>
+        <li><strong>Async/Await:</strong> Modern JavaScript pattern for handling promises</li>
+        <li><strong>updateOne with upsert:</strong> Updates if exists, inserts if not - prevents duplicates</li>
+        <li><strong>Error Handling:</strong> Try-catch blocks ensure errors don't crash the server</li>
+    </ul>
+</div>
+
+<!-- HISTORY ENDPOINT -->
+<div class="page">
+    <div class="file-header">📄 routes/weather.js (Part 2 - History Endpoint)</div>
+    <pre class="file-content"><code><span class="comment">// GET /api/weather/history</span>
+<span class="comment">// Multi-resolution endpoint for efficient chart rendering</span>
+<span class="comment">// Query params:</span>
+<span class="comment">//   - days: number of days to fetch (default 7)</span>
+<span class="comment">//   - resolution: '5min' | 'hourly' | 'daily' (default 'daily')</span>
+router.get('/history', async (req, res) => {
+    try {
+        const { days = 7, resolution = 'daily' } = req.query;
+        const daysAgo = new Date();
+        daysAgo.setDate(daysAgo.getDate() - parseInt(days));
+
+        <span class="comment">// Get records from MongoDB</span>
+        const records = await Weather.find({
+            date: { $gte: daysAgo }
+        })
+            .sort({ date: 1 }) <span class="comment">// Oldest first for charts</span>
+            .lean();
+
+        <span class="comment">// Transform record to standard format</span>
+        const transformRecord = (record) => {
+            const data = record.data || {};
+            return {
+                date: record.date,
+                temp: data.tempf 
+                    ? Math.round((data.tempf - 32) * 5 / 9) 
+                    : null,
+                humidity: data.humidity ?? null,
+                wind: data.windspeedmph ?? null,
+                pressure: data.baromrelin 
+                    ? Math.round(data.baromrelin * 33.8639 * 10) / 10 
+                    : null,
+                rainfall: data.dailyrainin 
+                    ? parseFloat((data.dailyrainin * 25.4).toFixed(1)) 
+                    : 0,
+            };
+        };
+
+        <span class="comment">// Resolution: 5min (raw data)</span>
+        if (resolution === '5min') {
+            const result = records.map(transformRecord);
+            return res.json(result);
+        }
+
+        <span class="comment">// Resolution: hourly (aggregate by hour)</span>
+        if (resolution === 'hourly') {
+            const hourlyData = {};
+            records.forEach(record => {
+                const date = new Date(record.date);
+                const hourKey = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getHours()}`;
+                
+                if (!hourlyData[hourKey]) {
+                    hourlyData[hourKey] = {
+                        records: [],
+                        date: new Date(date.getFullYear(), date.getMonth(), 
+                                      date.getDate(), date.getHours())
+                    };
+                }
+                hourlyData[hourKey].records.push(transformRecord(record));
+            });
+
+            <span class="comment">// Average each hour</span>
+            const result = Object.values(hourlyData).map(({ records: recs, date }) => {
+                const avg = (arr, key) => {
+                    const valid = arr.map(r => r[key]).filter(v => v !== null);
+                    return valid.length 
+                        ? Math.round(valid.reduce((a, b) => a + b, 0) / valid.length * 10) / 10 
+                        : null;
+                };
+                return {
+                    date,
+                    temp: avg(recs, 'temp'),
+                    humidity: avg(recs, 'humidity'),
+                    wind: avg(recs, 'wind'),
+                    pressure: avg(recs, 'pressure'),
+                    rainfall: avg(recs, 'rainfall'),
+                };
+            });
+
+            return res.json(result.sort((a, b) => new Date(a.date) - new Date(b.date)));
+        }
+
+        <span class="comment">// Resolution: daily (one reading per day)</span>
+        <span class="comment">// ... similar aggregation logic</span>
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch history' });
+    }
+});</code></pre>
+
+    <h3>Data Resolution Explained</h3>
+    <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+        <tr style="background: #edf2f7;">
+            <th style="padding: 10px; border: 1px solid #e2e8f0;">Resolution</th>
+            <th style="padding: 10px; border: 1px solid #e2e8f0;">Use Case</th>
+            <th style="padding: 10px; border: 1px solid #e2e8f0;">Data Points (7 days)</th>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><code>5min</code></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Detailed pressure charts, precise analysis</td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">~2,016 points</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><code>hourly</code></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Heatmaps, moderate detail charts</td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">~168 points</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><code>daily</code></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Bar charts, trend overviews</td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">7 points</td>
+        </tr>
+    </table>
+</div>
+
+<!-- MONGODB MODEL -->
+<div class="page">
+    <h2>models/Weather.js - MongoDB Schema</h2>
+    <p>Defines the data structure for storing weather records in MongoDB using Mongoose.</p>
+
+    <div class="file-header">📄 models/Weather.js</div>
+    <pre class="file-content"><code>const mongoose = require('mongoose');
+
+const weatherSchema = new mongoose.Schema({
+    macAddress: {
+        type: String,
+        required: true,
+        index: true
+    },
+    date: {
+        type: Date,
+        required: true,
+        index: true
+    },
+    data: {
+        type: Object,
+        required: true
+    },
+    fetchedAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+<span class="comment">// Compound index to ensure uniqueness of records per device/time</span>
+weatherSchema.index({ macAddress: 1, date: 1 }, { unique: true });
+
+module.exports = mongoose.model('Weather', weatherSchema);</code></pre>
+
+    <h3>Schema Breakdown</h3>
+    <ul>
+        <li><strong>macAddress:</strong> Unique identifier for the weather station device</li>
+        <li><strong>date:</strong> Timestamp of the weather reading</li>
+        <li><strong>data:</strong> Flexible object containing all weather metrics (temp, humidity, wind, etc.)</li>
+        <li><strong>fetchedAt:</strong> When this record was fetched from the API</li>
+        <li><strong>Compound Index:</strong> Prevents duplicate records for the same device at the same time</li>
+    </ul>
+
+    <h2>utils/ambient-weather.js - API Client</h2>
+    <p>Handles communication with the Ambient Weather external API.</p>
+
+    <div class="file-header">📄 utils/ambient-weather.js</div>
+    <pre class="file-content"><code>const axios = require('axios');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
+const BASE_URL = 'https://rt.ambientweather.net/v1';
+
+const getDevices = async () => {
+    const apiKey = process.env.AMBIENT_WEATHER_API_KEY;
+    const applicationKey = process.env.AMBIENT_WEATHER_APPLICATION_KEY;
+
+    if (!apiKey || !applicationKey) {
+        throw new Error('Missing Ambient Weather API Key or Application Key');
+    }
+
+    try {
+        const response = await axios.get(`${BASE_URL}/devices`, {
+            params: { apiKey, applicationKey }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching devices:', error.message);
+        throw error;
+    }
+};
+
+const getDeviceData = async (macAddress, limit = 288, endDate) => {
+    const apiKey = process.env.AMBIENT_WEATHER_API_KEY;
+    const applicationKey = process.env.AMBIENT_WEATHER_APPLICATION_KEY;
+
+    try {
+        const params = { apiKey, applicationKey, limit };
+        if (endDate) params.endDate = endDate;
+
+        const response = await axios.get(`${BASE_URL}/devices/${macAddress}`, { params });
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching device data:`, error.message);
+        throw error;
+    }
+};
+
+module.exports = { getDevices, getDeviceData };</code></pre>
+</div>
+
+<!-- DB SYNC -->
+<div class="page">
+    <h2>utils/db-sync.js - Automatic Data Synchronization</h2>
+    <p>Handles scheduled synchronization of weather data from the API to MongoDB.</p>
+
+    <div class="file-header">📄 utils/db-sync.js</div>
+    <pre class="file-content"><code>const ambientWeather = require('./ambient-weather');
+const Weather = require('../models/Weather');
+
+const syncAllDevices = async () => {
+    try {
+        console.log('Starting scheduled weather sync (high-resolution)...');
+        const devices = await ambientWeather.getDevices();
+
+        let totalSaved = 0;
+        for (const device of devices) {
+            try {
+                <span class="comment">// Fetch last 24 readings (~2 hours of data at 5-min intervals)</span>
+                <span class="comment">// This overlap ensures no data is missed even if sync is delayed</span>
+                const historicalData = await ambientWeather.getDeviceData(
+                    device.macAddress, 
+                    24
+                );
+
+                if (Array.isArray(historicalData) && historicalData.length > 0) {
+                    const bulkOps = historicalData.map(record => ({
+                        updateOne: {
+                            filter: { 
+                                macAddress: device.macAddress, 
+                                date: record.date 
+                            },
+                            update: {
+                                macAddress: device.macAddress,
+                                date: record.date,
+                                data: record,
+                                fetchedAt: new Date()
+                            },
+                            upsert: true
+                        }
+                    }));
+
+                    const result = await Weather.bulkWrite(bulkOps);
+                    totalSaved += (result.upsertedCount + result.modifiedCount);
+                }
+            } catch (dbError) {
+                console.error(`Error syncing device:`, dbError.message);
+            }
+
+            <span class="comment">// Wait 1.1s between devices to respect API rate limits</span>
+            await new Promise(resolve => setTimeout(resolve, 1100));
+        }
+        console.log(`Weather sync complete. Records processed: ${totalSaved}`);
+    } catch (error) {
+        console.error('Scheduled sync failed:', error.message);
+    }
+};
+
+module.exports = { syncAllDevices };</code></pre>
+
+    <h3>Why Bulk Operations?</h3>
+    <div class="highlight">
+        <strong>Performance:</strong> <code>bulkWrite()</code> sends multiple database operations in a single request, which is much faster than individual <code>updateOne()</code> calls. This is essential when processing hundreds of weather readings.
+    </div>
+</div>
+
+<!-- FRONTEND: MAIN -->
+<div class="page">
+    <h1>3. Frontend Application</h1>
+    
+    <h2>main.jsx - React Entry Point</h2>
+    <p>The entry point that renders the React application into the DOM.</p>
+
+    <div class="file-header">📄 frontend/src/main.jsx</div>
+    <pre class="file-content"><code>import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  &lt;StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/StrictMode&gt;,
+)</code></pre>
+
+    <h2>pages/Home.jsx - Home Page</h2>
+    <p>The main home page that displays the weather card and hourly forecast.</p>
+
+    <div class="file-header">📄 frontend/src/pages/Home.jsx</div>
+    <pre class="file-content"><code>import { MainWeatherCard } from '../components/MainWeatherCard';
+import { HourlyForecast } from '../components/HourlyForecast';
+
+export function Home() {
+  return (
+    &lt;&gt;
+      &lt;MainWeatherCard /&gt;
+      &lt;HourlyForecast /&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+
+    <h3>React Fragments (<code>&lt;&gt;...&lt;/&gt;</code>)</h3>
+    <p>Fragments let you group multiple elements without adding extra DOM nodes. This is useful when a component needs to return multiple sibling elements.</p>
+</div>
+
+<!-- MAIN WEATHER CARD -->
+<div class="page">
+    <h1>4. UI Components</h1>
+    
+    <h2>MainWeatherCard.jsx - Real-time Weather Display</h2>
+    <p>Displays current weather conditions fetched from the API with auto-refresh.</p>
+
+    <div class="file-header">📄 components/MainWeatherCard.jsx</div>
+    <pre class="file-content"><code>import React, { useState, useEffect } from "react";
+import { MapPin, Droplets, Eye, Gauge, Wind, CloudRain, Clock } from "lucide-react";
+
+<span class="comment">// Retry function for robust API calls</span>
+async function fetchWithRetry(url, retries = 3, delay = 2000) {
+  for (let i = 0; i &lt; retries; i++) {
+    try {
+      const res = await fetch(url);
+      if (res.ok) return res;
+      await new Promise(resolve => setTimeout(resolve, delay * (i + 1)));
+    } catch (err) {
+      if (i === retries - 1) throw err;
+      await new Promise(resolve => setTimeout(resolve, delay * (i + 1)));
+    }
+  }
+  throw new Error('Failed after retries');
+}
+
+export function MainWeatherCard() {
+  const [weatherData, setWeatherData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchWeatherData();
+    <span class="comment">// Refresh data every 60 seconds</span>
+    const interval = setInterval(fetchWeatherData, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  async function fetchWeatherData() {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await fetchWithRetry('http://localhost:3000/api/weather');
+      const data = await response.json();
+
+      if (data && data.length > 0) {
+        const device = data[0];
+        const lastData = device.lastData || {};
+
+        <span class="comment">// Convert Fahrenheit to Celsius</span>
+        const tempC = lastData.tempf !== undefined
+          ? ((lastData.tempf - 32) * 5 / 9).toFixed(1)
+          : null;
+
+        setWeatherData({
+          location: device.info?.name || 'Weather Station',
+          temperature: tempC,
+          humidity: lastData.humidity,
+          airPressure: lastData.baromrelin 
+            ? Math.round(lastData.baromrelin * 33.8639) 
+            : null,
+          wind: lastData.windspeedmph,
+          lastUpdated: lastData.date ? new Date(lastData.date) : null,
+        });
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  <span class="comment">// ... render JSX</span>
+}</code></pre>
+
+    <h3>React Hooks Explained</h3>
+    <ul>
+        <li><strong>useState:</strong> Creates state variables that trigger re-renders when updated</li>
+        <li><strong>useEffect:</strong> Runs side effects (API calls, timers) after render</li>
+        <li><strong>Cleanup function:</strong> <code>return () => clearInterval(interval)</code> prevents memory leaks</li>
+    </ul>
+</div>
+
+<!-- DIURNAL HEATMAP -->
+<div class="page">
+    <h2>DiurnalHeatmap.jsx - Temperature Heatmap</h2>
+    <p>Visualizes temperature patterns across hours of the day and days of the week.</p>
+
+    <div class="file-header">📄 components/DiurnalHeatmap.jsx (Key Logic)</div>
+    <pre class="file-content"><code>import { useMemo } from 'react';
+
+export function DiurnalHeatmap({ data = [], metric = 'temp', title = 'Diurnal Heatmap' }) {
+
+    <span class="comment">// Process data into heatmap format</span>
+    const heatmapData = useMemo(() => {
+        const processed = {};
+
+        data.forEach(record => {
+            if (!record.date) return;
+
+            let dateObj = new Date(record.date);
+            let hour = dateObj.getHours();
+            
+            const day = dateObj.toLocaleDateString('en-US', { 
+                month: 'short', day: 'numeric' 
+            });
+            const value = record[metric];
+            const key = `${day}-${hour}`;
+
+            if (hour !== undefined) {
+                processed[key] = { day, hour, value };
+            }
+        });
+
+        return Object.values(processed);
+    }, [data, metric]);
+
+    <span class="comment">// Color function - maps temperature to color</span>
+    function getColor(value, hasData) {
+        if (!hasData || value === null) {
+            return 'rgba(255, 255, 255, 0.03)';
+        }
+
+        const range = maxVal - minVal || 1;
+        const ratio = (value - minVal) / range;
+
+        <span class="comment">// Cool (blue) to Hot (red) gradient</span>
+        if (ratio &lt; 0.2) return `rgba(99, 102, 241, ${0.7 + ratio})`;   // Indigo
+        if (ratio &lt; 0.4) return `rgba(34, 211, 238, ${0.7 + ratio*0.5})`; // Cyan
+        if (ratio &lt; 0.6) return `rgba(34, 197, 94, ${0.8 + ratio*0.3})`;  // Green
+        if (ratio &lt; 0.8) return `rgba(250, 204, 21, ${0.85 + ratio*0.15})`; // Yellow
+        return `rgba(239, 68, 68, ${0.9 + ratio * 0.1})`; // Red
+    }
+
+    <span class="comment">// Render grid of cells</span>
+    return (
+        &lt;div className="bg-slate-900 rounded-3xl p-8"&gt;
+            {days.map(day => (
+                &lt;div key={day} className="flex"&gt;
+                    {hours.map(hour => (
+                        &lt;div
+                            key={hour}
+                            style={{ backgroundColor: getColor(getValue(day, hour), hasValue(day, hour)) }}
+                            title={`${day} ${hour}:00 — ${value}°C`}
+                        /&gt;
+                    ))}
+                &lt;/div&gt;
+            ))}
+        &lt;/div&gt;
+    );
+}</code></pre>
+
+    <h3>useMemo Hook</h3>
+    <div class="highlight">
+        <strong>Performance Optimization:</strong> <code>useMemo</code> caches the computed result and only recalculates when dependencies (<code>data</code>, <code>metric</code>) change. This prevents expensive recalculations on every render.
+    </div>
+</div>
+
+<!-- WIND POLAR CHART -->
+<div class="page">
+    <h2>WindPolarChart.jsx - Wind Direction Polar Chart</h2>
+    <p>Displays wind direction and speed data on a polar (circular) chart using HTML5 Canvas.</p>
+
+    <div class="file-header">📄 components/WindPolarChart.jsx (Key Logic)</div>
+    <pre class="file-content"><code>import { useState, useEffect, useRef, useCallback } from 'react';
+
+export function WindPolarChart({ title = "Wind Direction & Speed" }) {
+    const canvasRef = useRef(null);
+    const [windData, setWindData] = useState([]);
+    const [selectedDate, setSelectedDate] = useState('');
+
+    <span class="comment">// Viridis-style color scale for wind speed</span>
+    const getSpeedColor = (speed, maxSpeed) => {
+        const t = Math.min(speed / Math.max(maxSpeed, 20), 1);
+
+        <span class="comment">// Purple -> Blue -> Teal -> Green -> Yellow</span>
+        const colors = [
+            { r: 68, g: 1, b: 84 },      // Purple (0)
+            { r: 59, g: 82, b: 139 },    // Blue (0.25)
+            { r: 33, g: 145, b: 140 },   // Teal (0.5)
+            { r: 94, g: 201, b: 98 },    // Green (0.75)
+            { r: 253, g: 231, b: 37 }    // Yellow (1)
+        ];
+
+        <span class="comment">// Interpolate between colors</span>
+        const idx = t * (colors.length - 1);
+        const lower = Math.floor(idx);
+        const upper = Math.min(lower + 1, colors.length - 1);
+        const blend = idx - lower;
+
+        const r = Math.round(colors[lower].r + blend * (colors[upper].r - colors[lower].r));
+        const g = Math.round(colors[lower].g + blend * (colors[upper].g - colors[lower].g));
+        const b = Math.round(colors[lower].b + blend * (colors[upper].b - colors[lower].b));
+
+        return `rgb(${r}, ${g}, ${b})`;
+    };
+
+    <span class="comment">// Draw the polar chart</span>
+    const drawChart = useCallback(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        const centerX = canvas.width / 2 - 40;
+        const centerY = canvas.height / 2;
+        const maxRadius = Math.min(centerX, centerY) - 40;
+
+        <span class="comment">// Clear canvas</span>
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        <span class="comment">// Draw concentric circles (speed rings)</span>
+        for (let i = 1; i &lt;= 4; i++) {
+            const radius = (i / 4) * maxRadius;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            ctx.strokeStyle = '#e2e8f0';
+            ctx.stroke();
+        }
+
+        <span class="comment">// Plot wind data points</span>
+        windData.forEach(point => {
+            const radian = (point.winddir - 90) * Math.PI / 180;
+            const radius = (point.windspeed / maxSpeed) * maxRadius;
+            const x = centerX + radius * Math.cos(radian);
+            const y = centerY + radius * Math.sin(radian);
+
+            ctx.beginPath();
+            ctx.arc(x, y, 4, 0, 2 * Math.PI);
+            ctx.fillStyle = getSpeedColor(point.windspeed, maxSpeed);
+            ctx.fill();
+        });
+    }, [windData]);
+
+    <span class="comment">// ... rest of component</span>
+}</code></pre>
+
+    <h3>Canvas Drawing Concepts</h3>
+    <ul>
+        <li><strong>useRef:</strong> Creates a reference to the canvas DOM element</li>
+        <li><strong>getContext('2d'):</strong> Gets the 2D drawing context</li>
+        <li><strong>Polar coordinates:</strong> Convert angle + distance to x,y using cos/sin</li>
+        <li><strong>useCallback:</strong> Memoizes the draw function to prevent unnecessary recreations</li>
+    </ul>
+</div>
+
+<!-- TEMPERATURE CHART -->
+<div class="page">
+    <h2>TemperatureChart.jsx - Daily Min-Max Temperature Chart</h2>
+    <p>Displays daily temperature ranges as vertical bars, similar to scientific weather plots.</p>
+
+    <div class="file-header">📄 components/TemperatureChart.jsx (Key Logic)</div>
+    <pre class="file-content"><code>export function TemperatureChart({ title = "Temperature Analysis" }) {
+    const canvasRef = useRef(null);
+    const [plotType, setPlotType] = useState('minmax');
+    const [dailyData, setDailyData] = useState([]);
+
+    <span class="comment">// Fetch and process temperature data</span>
+    const fetchTemperatureData = useCallback(async () => {
+        const detailedRes = await fetch(
+            'http://localhost:3000/api/weather/history?days=30&resolution=5min'
+        );
+        const detailedData = await detailedRes.json();
+
+        <span class="comment">// Calculate daily min/max from raw data</span>
+        const groupedByDate = {};
+        detailedData.forEach(d => {
+            const dateKey = new Date(d.date).toISOString().split('T')[0];
+            const temp = d.temp || 0;
+            
+            if (!groupedByDate[dateKey]) {
+                groupedByDate[dateKey] = { min: temp, max: temp, date: dateKey };
+            } else {
+                groupedByDate[dateKey].min = Math.min(groupedByDate[dateKey].min, temp);
+                groupedByDate[dateKey].max = Math.max(groupedByDate[dateKey].max, temp);
+            }
+        });
+
+        const dailyMinMax = Object.values(groupedByDate)
+            .sort((a, b) => new Date(a.date) - new Date(b.date));
+        setDailyData(dailyMinMax);
+    }, []);
+
+    <span class="comment">// Draw Min-Max bars</span>
+    const drawChart = useCallback(() => {
+        const ctx = canvasRef.current.getContext('2d');
+        
+        <span class="comment">// Calculate bar dimensions</span>
+        const barWidth = Math.max(4, (chartWidth / dailyData.length) * 0.6);
+        const barGap = chartWidth / dailyData.length;
+
+        dailyData.forEach((day, index) => {
+            const x = padding.left + index * barGap + barGap / 2;
+            const yMax = padding.top + chartHeight - ((day.max - minTemp) / yRange) * chartHeight;
+            const yMin = padding.top + chartHeight - ((day.min - minTemp) / yRange) * chartHeight;
+            const barHeight = yMin - yMax;
+
+            <span class="comment">// Draw vertical bar from min to max</span>
+            ctx.fillStyle = '#1e293b';
+            ctx.fillRect(x - barWidth / 2, yMax, barWidth, barHeight);
+        });
+    }, [dailyData]);
+
+    <span class="comment">// ... rest of component</span>
+}</code></pre>
+
+    <h3>Data Aggregation Pattern</h3>
+    <div class="highlight">
+        <strong>Grouping by Date:</strong> The code uses an object as a dictionary where each key is a date string. For each data point, it updates the min/max values for that day. This is a common pattern for aggregating time-series data.
+    </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="page">
+    <h1>5. How It All Works Together</h1>
+    
+    <h2>Data Flow</h2>
+    
+    <div class="architecture-box">
+        <h3>🔄 Complete Data Journey</h3>
+        <pre style="background: transparent; color: #333; font-size: 11px;">
+1. WEATHER STATION (Hardware)
+   └── Reads sensors every 5 minutes
+   └── Sends data to Ambient Weather cloud
+
+2. AMBIENT WEATHER API
+   └── Stores real-time data
+   └── Provides REST API endpoints
+
+3. EXPRESS BACKEND (server.js)
+   ├── db-sync.js runs every hour
+   │   └── Fetches last 24 readings from API
+   │   └── Bulk upserts into MongoDB
+   │
+   └── weather.js routes handle requests
+       ├── /api/weather → Latest reading
+       ├── /api/weather/history → Historical data (multi-resolution)
+       └── /api/weather/wind → Wind data for polar chart
+
+4. MONGODB DATABASE
+   └── Stores all historical readings
+   └── Indexed by macAddress + date for fast queries
+
+5. REACT FRONTEND
+   ├── MainWeatherCard → Shows current conditions
+   ├── DiurnalHeatmap → Hour×Day temperature grid
+   ├── WindPolarChart → Direction + speed visualization
+   └── TemperatureChart → Daily min/max bars
+        </pre>
+    </div>
+
+    <h2>Running the Project</h2>
+    
+    <h3>Prerequisites</h3>
+    <ol>
+        <li>Node.js 18+ installed</li>
+        <li>MongoDB running (local or Atlas)</li>
+        <li>Ambient Weather API keys</li>
+    </ol>
+
+    <h3>Setup Steps</h3>
+    <pre>
+# 1. Clone the repository
+git clone https://github.com/habibinav/miniproject.git
+cd miniproject
+
+# 2. Create .env file with your credentials
+MONGODB_URI=mongodb://localhost:27017/weatherstation
+AMBIENT_WEATHER_API_KEY=your_api_key
+AMBIENT_WEATHER_APPLICATION_KEY=your_app_key
+
+# 3. Install backend dependencies
+npm install
+
+# 4. Start the backend server
+npm start
+
+# 5. In a new terminal, install frontend dependencies
+cd frontend
+npm install
+
+# 6. Start the frontend dev server
+npm run dev
+    </pre>
+
+    <h3>Key Environment Variables</h3>
+    <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+        <tr style="background: #edf2f7;">
+            <th style="padding: 10px; border: 1px solid #e2e8f0;">Variable</th>
+            <th style="padding: 10px; border: 1px solid #e2e8f0;">Description</th>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><code>MONGODB_URI</code></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">MongoDB connection string</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><code>AMBIENT_WEATHER_API_KEY</code></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Your Ambient Weather API key</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><code>AMBIENT_WEATHER_APPLICATION_KEY</code></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Your Ambient Weather application key</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;"><code>PORT</code></td>
+            <td style="padding: 10px; border: 1px solid #e2e8f0;">Backend server port (default: 3000)</td>
+        </tr>
+    </table>
+</div>
+
+<!-- LEARNING RESOURCES -->
+<div class="page">
+    <h1>📚 Learning Resources</h1>
+    
+    <h2>Topics to Study</h2>
+    
+    <h3>JavaScript & Node.js</h3>
+    <ul>
+        <li><strong>Async/Await:</strong> Modern way to handle asynchronous operations</li>
+        <li><strong>Promises:</strong> Foundation of async JavaScript</li>
+        <li><strong>ES6 Modules:</strong> <code>import</code>/<code>export</code> syntax</li>
+        <li><strong>Array Methods:</strong> <code>map()</code>, <code>filter()</code>, <code>reduce()</code>, <code>forEach()</code></li>
+    </ul>
+
+    <h3>React Concepts</h3>
+    <ul>
+        <li><strong>Hooks:</strong> useState, useEffect, useRef, useCallback, useMemo</li>
+        <li><strong>Component Lifecycle:</strong> Mounting, updating, unmounting</li>
+        <li><strong>Props & State:</strong> Data flow in React applications</li>
+        <li><strong>Conditional Rendering:</strong> Showing different UI based on state</li>
+    </ul>
+
+    <h3>Backend Development</h3>
+    <ul>
+        <li><strong>REST APIs:</strong> HTTP methods (GET, POST, PUT, DELETE)</li>
+        <li><strong>Express Middleware:</strong> CORS, body parsing, routing</li>
+        <li><strong>MongoDB:</strong> Document databases, schemas, queries</li>
+        <li><strong>Error Handling:</strong> Try-catch, error responses</li>
+    </ul>
+
+    <h3>Data Visualization</h3>
+    <ul>
+        <li><strong>Canvas API:</strong> Drawing graphics programmatically</li>
+        <li><strong>Recharts:</strong> React charting library</li>
+        <li><strong>Color Scales:</strong> Mapping values to colors</li>
+        <li><strong>Coordinate Systems:</strong> Cartesian vs Polar</li>
+    </ul>
+
+    <h2>Recommended Next Steps</h2>
+    <ol>
+        <li>Run the project locally and explore the UI</li>
+        <li>Add console.log statements to trace data flow</li>
+        <li>Try modifying chart colors or styles</li>
+        <li>Add a new API endpoint for a different metric</li>
+        <li>Create a new visualization component</li>
+    </ol>
+
+    <div style="margin-top: 50px; text-align: center; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; color: white;">
+        <h2 style="color: white; border: none;">Happy Learning! 🚀</h2>
+        <p>This documentation was auto-generated to help you understand the codebase.</p>
+        <p style="margin-top: 20px; opacity: 0.8;">
+            <strong>To save as PDF:</strong> Open this HTML file in a browser, then use Print → Save as PDF
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

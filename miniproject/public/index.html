@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambient Weather Station</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-glob"></div>
+    <div class="container">
+        <header>
+            <h1>Ambient Weather API</h1>
+            <p>Real-time Weather Station Data</p>
+        </header>
+
+        <main id="device-container">
+            <div class="loading">Loading devices...</div>
+        </main>
+    </div>
+
+    <!-- Template for Device Card -->
+    <template id="device-card-template">
+        <div class="device-card">
+            <div class="card-header">
+                <h2 class="device-name"></h2>
+                <span class="device-mac"></span>
+            </div>
+            <div class="weather-grid">
+                <div class="weather-item">
+                    <span class="label">Temp</span>
+                    <span class="value temp">--</span>
+                </div>
+                <div class="weather-item">
+                    <span class="label">Humidity</span>
+                    <span class="value humidity">--</span>
+                </div>
+                <div class="weather-item">
+                    <span class="label">Wind</span>
+                    <span class="value wind">--</span>
+                </div>
+                <div class="weather-item">
+                    <span class="label">Rain</span>
+                    <span class="value rain">--</span>
+                </div>
+            </div>
+            <div class="last-updated">Updated: <span class="time">--</span></div>
+        </div>
+    </template>
+
+    <script src="app.js"></script>
+</body>
+</html>
