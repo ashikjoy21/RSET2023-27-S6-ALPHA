@@ -1,0 +1,7 @@
+node_modules/
+backend/models/
+backend/__pycache__/
+*.db
+IMAGES/
+.venv/
+frontend/dist/
