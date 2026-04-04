@@ -1,0 +1,29 @@
+## Avaaz: track code + PDFs; ignore videos/models/cache
+
+# Videos / media
+/INDIAN SIGN LANGUAGE ANIMATED VIDEOS*/
+*.mp4
+
+# ML models / artifacts (large)
+/models/
+*.bin
+*.lock
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+.env
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
